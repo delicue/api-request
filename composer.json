@@ -1,0 +1,9 @@
+{
+    "name": "delique/api",
+    "autoload": {
+        "psr-4": {
+            "Delique\\Api\\": "src/"
+        }
+    },
+    "require": {}
+}
