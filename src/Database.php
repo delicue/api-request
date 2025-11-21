@@ -11,7 +11,7 @@ class Database
 
     private function __construct() {
         try {
-            $this->connection = new PDO('sqlite:' . __DIR__ . '/databases/database.db');
+            $this->connection = new PDO('sqlite:' . __DIR__ . '/databases/database.sqlite');
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->connection->exec("CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,

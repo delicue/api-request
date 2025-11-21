@@ -1,6 +1,7 @@
 <?php
 
 use Api\ApiRouter;
+use Api\Database;
 
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../functions.php';
@@ -11,20 +12,28 @@ require __DIR__ . '/../functions.php';
 // ];
 
 $routes = require __DIR__ . '/../routes.php';
+
 $apiRouter = new ApiRouter();
-$uri = $_SERVER['REQUEST_URI'];
+$url = parse_url($_SERVER['REQUEST_URI']);
+$uri = $url['path'];
+$method = $_SERVER['REQUEST_METHOD'];
 
-// if (array_key_exists($uri, $routes)) {
-//     header('Content-Type: text/html');
-//     view($routes[$_SERVER['REQUEST_URI']]);
+if (array_key_exists($uri, $routes)) {
+    header('Content-Type: text/html');
+    view($routes[$_SERVER['REQUEST_URI']]);
+    return;
+}
 
-// }
-// else {
-    $apiRouter->get('/', function() {
+$apiRouter->get('/users', function() {
+    $apiKey = $_GET['apiKey'];
+    $db = Database::getInstance();
+    if($db->isValidApiKey($apiKey)){
         header('Content-Type: application/json');
-        jsonData('users');
-    });
-// }
-// else {
-//     http_response_code(404);
-// }
+        return jsonData('users');
+    } else {
+        http_response_code(403);
+        return "Unauthorized";
+    }
+});
+
+$apiRouter->dispatch($uri, $method);

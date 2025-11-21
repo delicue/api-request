@@ -1,5 +1,5 @@
 // Fetch users from the API
-function api(baseUri, queryParams = { key: '' }, { triggerElement, affectedElement, event }) {
+function api(baseUri, queryParams, { triggerElement, affectedElement, event }) {
     // 1. Define your base URL
     const baseUrl = 'https://api.example.com/data';
 
@@ -27,7 +27,3 @@ function api(baseUri, queryParams = { key: '' }, { triggerElement, affectedEleme
         }
     });
 }
-
-api('/users', {
-    key:
-})

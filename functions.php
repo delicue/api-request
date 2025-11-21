@@ -8,5 +8,5 @@ function view(string $viewPath, array $data = []): void
 
 function jsonData(string $path)
 {
-    require __DIR__ . "{$path}.json";
+    require __DIR__ . "/data/{$path}.json";
 }
